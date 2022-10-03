@@ -2,6 +2,7 @@ package com.example.vhr.service;
 
 import com.example.vhr.entity.Hr;
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 /**
  * <p>
@@ -11,6 +12,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author wangxiaochao
  * @since 2022-10-03
  */
-public interface HrService extends IService<Hr> {
+public interface HrService extends IService<Hr>,  UserDetailsService {
 
 }

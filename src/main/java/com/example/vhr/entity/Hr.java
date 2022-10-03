@@ -101,6 +101,6 @@ public class Hr implements Serializable, UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return this.enabled;
     }
 }
