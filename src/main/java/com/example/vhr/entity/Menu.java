@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.annotation.Version;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
+import java.util.List;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -42,11 +44,9 @@ public class Menu implements Serializable {
     @TableField("iconCls")
     private String iconCls;
 
-    @TableField("keepAlive")
-    private Boolean keepAlive;
+    private Meta meta;
 
-    @TableField("requireAuth")
-    private Boolean requireAuth;
+    private List<Menu> children;
 
     @TableField("parentId")
     private Integer parentId;

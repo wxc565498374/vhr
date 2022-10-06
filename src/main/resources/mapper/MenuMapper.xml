@@ -10,15 +10,23 @@
         <result column="component" property="component" />
         <result column="name" property="name" />
         <result column="iconCls" property="iconCls" />
-        <result column="keepAlive" property="keepAlive" />
-        <result column="requireAuth" property="requireAuth" />
         <result column="parentId" property="parentId" />
         <result column="enabled" property="enabled" />
+        <association property="meta" javaType="com.example.vhr.entity.Meta">
+            <result column="keepAlive" property="keepAlive" jdbcType="BIT" />
+            <result column="requireAuth" property="requireAuth" jdbcType="BIT" />
+        </association>
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         id, url, path, component, name, iconCls, keepAlive, requireAuth, parentId, enabled
     </sql>
+
+    <select id="listMenusByHrId" resultMap="BaseResultMap">
+        select distinct m.* from hr, hr_role hrr, role r, menu_role mr, menu m
+        where hr.id = hrr.hrid and hrr.rid = r.`id` and mr.rid = r.id and m.id = mr.mid
+        and hr.id = #{hrId}
+    </select>
 
 </mapper>
