@@ -1,4 +1,4 @@
-package com.example.vhr.config;
+package com.example.vhr.controller;
 
 import com.example.vhr.entity.Menu;
 import com.example.vhr.service.MenuService;
