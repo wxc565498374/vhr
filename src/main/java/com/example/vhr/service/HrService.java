@@ -13,5 +13,5 @@ import org.springframework.security.core.userdetails.UserDetailsService;
  * @since 2022-10-03
  */
 public interface HrService extends IService<Hr>,  UserDetailsService {
-
+    Hr getHrByUsername(String username);
 }

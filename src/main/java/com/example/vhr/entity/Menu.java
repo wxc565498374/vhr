@@ -48,6 +48,8 @@ public class Menu implements Serializable {
 
     private List<Menu> children;
 
+    private List<Role> roles;
+
     @TableField("parentId")
     private Integer parentId;
 

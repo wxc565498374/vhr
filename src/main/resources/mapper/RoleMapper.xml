@@ -14,4 +14,7 @@
         id, name, nameZh
     </sql>
 
+    <select id="getRoleByHrId" resultMap="BaseResultMap">
+        select r.* from role r, hr_role hrr where r.id = hrr.rid and hrr.hrid = #{hrId}
+    </select>
 </mapper>

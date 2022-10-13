@@ -24,9 +24,15 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
 
     @Autowired
     private MenuMapper menuMapper;
+
     @Override
     public List<Menu> getMenusByHrId() {
         Integer hrId = ((Hr) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId();
         return menuMapper.listMenusByHrId(hrId);
+    }
+
+    @Override
+    public List<Menu> getAllMenusWithRule() {
+        return menuMapper.getAllMenusWithRule();
     }
 }
