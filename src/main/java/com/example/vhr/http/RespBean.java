@@ -1,4 +1,4 @@
-package com.example.vhr.entity;
+package com.example.vhr.http;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

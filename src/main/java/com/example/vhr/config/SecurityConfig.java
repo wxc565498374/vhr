@@ -1,7 +1,7 @@
 package com.example.vhr.config;
 
 import com.example.vhr.entity.Hr;
-import com.example.vhr.entity.RespBean;
+import com.example.vhr.http.RespBean;
 import com.example.vhr.service.HrService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +17,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -123,7 +124,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 })
                 .permitAll()
                 .and()
-                .csrf().disable();
+                .csrf().disable().exceptionHandling()
+                // 没有认证时在这里处理，不再重定向
+                .authenticationEntryPoint(new AuthenticationEntryPoint() {
+                    @Override
+                    public void commence(HttpServletRequest req, HttpServletResponse resp, AuthenticationException e) throws IOException, ServletException {
+                        resp.setContentType("application/json;charset=utf-8");
+                        PrintWriter writer = resp.getWriter();
+                        RespBean respBean = RespBean.error("访问失败！");
+                        if (e instanceof InsufficientAuthenticationException) {
+                            respBean.setMsg("请求失败，请联系管理员");
+                        }
+                        writer.write(new ObjectMapper().writeValueAsString(respBean));
+                        writer.flush();
+                        writer.close();
+                    }
+                });
     }
 
     @Bean
