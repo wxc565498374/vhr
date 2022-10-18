@@ -30,7 +30,7 @@ public class PositionController {
         return positionService.getAllPosition();
     }
 
-    @PostMapping("/addPosition")
+    @PostMapping("/")
     public RespBean addPosition(@RequestBody Position position){
         position.setCreateDate(new Date());
         position.setEnabled(true);
@@ -40,9 +40,21 @@ public class PositionController {
         return RespBean.ok("添加失败！");
     }
 
-    // todo update put Position
+    @PutMapping("/")
+    public RespBean updatePosition(@RequestBody Position position){
+        if (positionService.updateById(position)) {
+            return RespBean.ok("修改成功！");
+        }
+        return RespBean.ok("修改失败！");
+    }
 
-    // todo delete delete {id}
+    @DeleteMapping("/{id}")
+    public RespBean delPosition(@PathVariable Integer id){
+        if (positionService.removeById(id)) {
+            return RespBean.ok("删除成功！");
+        }
+        return RespBean.ok("删除失败！");
+    }
 
 }
 
