@@ -7,6 +7,7 @@ import com.example.vhr.service.PositionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -56,5 +57,12 @@ public class PositionController {
         return RespBean.ok("删除失败！");
     }
 
+    @DeleteMapping("/delBatch/{ids}")
+    public RespBean delBatch(@PathVariable String ids){
+        if (positionService.removeByIds(Arrays.asList(ids.split(",")))) {
+            return RespBean.ok("批量删除成功！");
+        }
+        return RespBean.ok("批量删除失败！");
+    }
 }
 
